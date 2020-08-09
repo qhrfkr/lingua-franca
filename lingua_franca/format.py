@@ -23,6 +23,7 @@ from lingua_franca.lang.format_it import *
 from lingua_franca.lang.format_sv import *
 from lingua_franca.lang.format_hu import *
 from lingua_franca.lang.format_cs import *
+from lingua_franca.lang.format_ru import *
 
 from lingua_franca.lang.format_es import nice_number_es
 from lingua_franca.lang.format_es import nice_time_es
@@ -42,6 +43,9 @@ from lingua_franca.lang.format_da import pronounce_number_da
 from lingua_franca.lang.format_cs import nice_number_cs
 from lingua_franca.lang.format_cs import nice_time_cs
 from lingua_franca.lang.format_cs import pronounce_number_cs
+from lingua_franca.lang.format_ru import nice_number_ru
+from lingua_franca.lang.format_ru import nice_time_ru
+from lingua_franca.lang.format_ru import pronounce_number_ru
 
 from lingua_franca.bracket_expansion import SentenceTreeParser
 from lingua_franca import _log_unsupported_language
@@ -286,12 +290,14 @@ def nice_number(number, lang=None, speech=True, denominators=None):
         return nice_number_da(number, speech, denominators)
     elif lang_code == "cs":
         return nice_number_cs(number, speech, denominators)
+    elif lang_code == "ru":
+        return nice_number_ru(number, speech, denominators)
 
     # Default to the raw number for unsupported languages,
     # hopefully the STT engine will pronounce understandably.
     # TODO: nice_number_XX for other languages
     _log_unsupported_language(lang_code, ['en', 'es', 'pt', 'it', 'fr',
-                                          'sv', 'de', 'hu', 'nl', 'da', 'cs'])
+                                          'sv', 'de', 'hu', 'nl', 'da', 'cs', 'ru'])
     return str(number)
 
 
@@ -335,9 +341,11 @@ def nice_time(dt, lang=None, speech=True, use_24hour=False,
         return nice_time_sv(dt, speech, use_24hour, use_ampm)
     elif lang_code == "cs":
         return nice_time_cs(dt, speech, use_24hour, use_ampm)
+    elif lang_code == "ru":
+        return nice_time_ru(dt, speech, use_24hour, use_ampm)
     # TODO: Other languages
     _log_unsupported_language(lang_code, ['en', 'es', 'pt', 'it', 'fr',
-                                          'sv', 'de', 'hu', 'nl', 'da','cs'])
+                                          'sv', 'de', 'hu', 'nl', 'da','cs', 'ru'])
     return str(dt)
 
 
@@ -388,11 +396,16 @@ def pronounce_number(number, lang=None, places=2, short_scale=True,
                                    short_scale=short_scale,
                                    scientific=scientific,
                                    ordinals=ordinals)
+    elif lang_code == "ru":
+        return pronounce_number_ru(number, places=places,
+                                   short_scale=short_scale,
+                                   scientific=scientific,
+                                   ordinals=ordinals)
 
     # Default to just returning the numeric value
     # TODO: Other languages
     _log_unsupported_language(lang_code, ['en', 'es', 'pt', 'it', 'fr',
-                                          'sv', 'de', 'hu', 'nl', 'da','cs'])
+                                          'sv', 'de', 'hu', 'nl', 'da','cs', 'ru'])
     return str(number)
 
 
